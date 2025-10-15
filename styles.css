@@ -1,0 +1,129 @@
+:root{
+  --bg:#e6eef6;
+  --surface:#e0e7ff;
+  --accent:#0fb1b1;
+  --accent-cta:#12c0c0;
+  --btn-glow: 0 0 10px rgba(18,192,192,0.06);
+  --shiny-accent: rgba(255,255,255,0.14);
+  --shiny-duration: 6s;
+  --muted:#9fb3b2;
+  --radius:12px;
+  --gap:18px;
+  --btn-h:68px;
+  --foot-gap-top:28px;
+  --foot-gap-bottom:14px;
+  font-family:'Inter';
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{
+  background:linear-gradient(to top,#040D12 0%,#183D3D 100%);
+  display:flex;align-items:center;justify-content:center;padding:28px;
+  -webkit-font-smoothing:antialiased;
+  color:#e6f3f2;
+}
+
+.wrap{
+  width:100%;max-width:1100px;
+  padding:28px;border-radius:18px;
+  background:linear-gradient(180deg,rgba(8,20,20,0.22),rgba(2,8,10,0.32));
+  border:1px solid rgba(255,255,255,0.04);
+  box-shadow:0 12px 40px rgba(2,8,10,0.6);
+  backdrop-filter:blur(6px);
+}
+
+
+.top{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px;text-align:left;width:100%}
+.top h1{font-size:35px;flex:1;margin:0}
+
+.top > .neo-btn{
+  width:var(--btn-h);min-width:var(--btn-h);height:var(--btn-h);padding:0;border-radius:10px;display:inline-flex;align-items:center;justify-content:center
+}
+.subtitle{color:rgba(232,251,250,0.8);font-size:13px}
+
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--gap);align-items:stretch}
+
+.neo-btn{
+  height:var(--btn-h);border-radius:var(--radius);border:1px solid rgba(255,255,255,0.04);
+  background-color:#0f3f3f;
+  box-shadow:10px 12px 28px rgba(0,0,0,0.6),inset -6px -6px 14px rgba(255,255,255,0.02);
+  color:#e6f3f2;font-weight:700;font-size:16px;cursor:pointer;
+  transition:transform 160ms cubic-bezier(.2,.9,.2,1),box-shadow 160ms;display:flex;align-items:center;justify-content:center;
+  user-select:none;position:relative;outline:none;overflow:hidden
+}
+
+.neo-btn .label{display:none}
+
+.neo-btn::after{
+  content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) translateX(0);z-index:2;color:inherit;font-weight:700;font-size:16px;white-space:nowrap;pointer-events:none;transition:transform 320ms cubic-bezier(.2,.9,.2,1),opacity 240ms ease;opacity:1;will-change:transform,opacity;text-align:center
+}
+
+.neo-btn:hover::after{transform:translate(-50%,-50%) translateX(120%);opacity:0}
+
+.neo-btn::before{
+  content:"";position:absolute;top:50%;left:12px;transform:translateY(-50%) translateX(-8px);width:30px;height:30px;background-image:url('./assets/img/right-arrow.png');background-size:contain;background-repeat:no-repeat;background-position:center;opacity:0;transition:left 360ms cubic-bezier(.2,.9,.2,1),transform 360ms cubic-bezier(.2,.9,.2,1),opacity 200ms ease;z-index:3;pointer-events:none
+}
+
+.neo-btn:hover .label{transform:translateX(120%);opacity:0}
+.neo-btn:hover::before{left:50%;transform:translate(-50%,-50%) scale(1);opacity:1}
+
+.neo-btn:hover{box-shadow:14px 18px 36px rgba(0,0,0,0.7), var(--btn-glow), inset -4px -4px 10px rgba(255,255,255,0.02)}
+
+.neo-btn:active,.neo-btn.pressed{transform:translateY(1px) scale(0.996);box-shadow:inset 6px 6px 18px rgba(0,0,0,0.7),inset -4px -4px 12px rgba(255,255,255,0.02)}
+.neo-btn:focus{box-shadow:0 0 0 4px rgba(125,211,252,0.12),8px 8px 20px rgba(163,177,198,0.28)}
+.neo-btn.ghost{visibility:hidden;pointer-events:none;opacity:0}
+
+.status{margin-top:18px;color:rgba(230,243,242,0.9);font-size:14px;padding-top:8px;border-top:1px dashed rgba(16,24,40,0.04)}
+
+.foot{margin-top:var(--foot-gap-top);margin-bottom:var(--foot-gap-bottom);display:flex;justify-content:center;align-items:center;width:100%;text-align:center;color:var(--muted);padding-top:6px;padding-bottom:1px}
+
+.week-btn{ 
+  height:var(--btn-h);border-radius:var(--radius);border:1px solid rgba(255,255,255,0.04);
+  background:linear-gradient(145deg,#0c3535 0%,#133f3f 100%);
+  box-shadow:10px 12px 28px rgba(0,0,0,0.6),inset -6px -6px 14px rgba(255,255,255,0.02);
+  color:#e6f3f2;font-weight:700;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;user-select:none;outline:none;overflow:hidden
+}
+
+.neo-btn.active,.week-btn.active{background:linear-gradient(180deg,#1f6b6b,#0f5454);color:#eaffff;border-color:rgba(170,255,255,0.08);box-shadow:0 14px 40px rgba(16,54,54,0.6),0 0 20px rgba(34,197,94,0.06)}
+
+@media (max-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:640px){.grid{grid-template-columns:repeat(2,1fr);gap:12px}:root{--btn-h:60px;--gap:12px;--radius:12px}.wrap{padding:16px}.top{flex-direction:column;align-items:center;gap:8px}.foot{margin-top:20px;margin-bottom:10px}}
+@media (orientation:landscape) and (max-height:460px){body{padding:10px}.wrap{padding:12px}.neo-btn{height:56px;font-size:15px}.status{font-size:13px}}
+@media (max-width:640px){.wrap{background:linear-gradient(180deg,rgba(8,20,20,0.24),rgba(2,8,10,0.36))}.neo-btn,.week-btn{height:62px;font-size:15px}}
+@media (orientation:landscape) and (max-height:440px){.wrap{padding:12px}.neo-btn,.week-btn{height:54px;font-size:14px}}
+
+.neo-btn.btn-2::after{content:"Hafta 2"}
+.neo-btn.btn-3::after{content:"Hafta 3"}
+.neo-btn.btn-4::after{content:"Hafta 4"}
+.neo-btn.btn-5::after{content:"Hafta 5"}
+.neo-btn.btn-6::after{content:"Hafta 6"}
+.neo-btn.btn-7::after{content:"Hafta 7"}
+.neo-btn.btn-8::after{content:"Hafta 8"}
+.neo-btn.btn-9::after{content:"Hafta 9"}
+.neo-btn.btn-10::after{content:"Hafta 10"}
+.neo-btn.btn-11::after{content:"Hafta 11"}
+.neo-btn.btn-12::after{content:"Hafta 12"}
+.neo-btn.btn-13::after{content:"Hafta 13"}
+.neo-btn.btn-s::after{
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 55px;
+  height: 55px;
+  background-image: url('./assets/gif/transparent-rubber-duck.gif');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 2;
+  opacity: 1;
+}
+
+/* header/special button shouldn't show the left arrow */
+.neo-btn.btn-s::before{display:none}
+
+/* keep the icon visible on hover (override generic translate out) */
+.neo-btn.btn-s:hover::after{transform:translate(-50%,-50%);opacity:1}
+
