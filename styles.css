@@ -12,6 +12,8 @@
   --btn-h:68px;
   --foot-gap-top:28px;
   --foot-gap-bottom:14px;
+  --btn-text-size: 24px;
+  --btn-text-color: #e6f3f2;
   font-family:'Inter';
 }
 
@@ -48,7 +50,7 @@ body{
   height:var(--btn-h);border-radius:var(--radius);border:1px solid rgba(255,255,255,0.04);
   background-color:#0f3f3f;
   box-shadow:10px 12px 28px rgba(0,0,0,0.6),inset -6px -6px 14px rgba(255,255,255,0.02);
-  color:#e6f3f2;font-weight:700;font-size:16px;cursor:pointer;
+  color:var(--btn-text-color);font-weight:700;font-size:var(--btn-text-size);cursor:pointer;
   transition:transform 160ms cubic-bezier(.2,.9,.2,1),box-shadow 160ms;display:flex;align-items:center;justify-content:center;
   user-select:none;position:relative;outline:none;overflow:hidden
 }
@@ -56,7 +58,7 @@ body{
 .neo-btn .label{display:none}
 
 .neo-btn::after{
-  content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) translateX(0);z-index:2;color:inherit;font-weight:700;font-size:16px;white-space:nowrap;pointer-events:none;transition:transform 320ms cubic-bezier(.2,.9,.2,1),opacity 240ms ease;opacity:1;will-change:transform,opacity;text-align:center
+  content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) translateX(0);z-index:2;color:var(--btn-text-color);font-weight:700;font-size:var(--btn-text-size);white-space:nowrap;pointer-events:none;transition:transform 320ms cubic-bezier(.2,.9,.2,1),opacity 240ms ease;opacity:1;will-change:transform,opacity;text-align:center
 }
 
 .neo-btn:hover::after{transform:translate(-50%,-50%) translateX(120%);opacity:0}
@@ -82,16 +84,16 @@ body{
   height:var(--btn-h);border-radius:var(--radius);border:1px solid rgba(255,255,255,0.04);
   background:linear-gradient(145deg,#0c3535 0%,#133f3f 100%);
   box-shadow:10px 12px 28px rgba(0,0,0,0.6),inset -6px -6px 14px rgba(255,255,255,0.02);
-  color:#e6f3f2;font-weight:700;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;user-select:none;outline:none;overflow:hidden
+  color:var(--btn-text-color);font-weight:700;font-size:var(--btn-text-size);cursor:pointer;display:flex;align-items:center;justify-content:center;user-select:none;outline:none;overflow:hidden
 }
 
 .neo-btn.active,.week-btn.active{background:linear-gradient(180deg,#1f6b6b,#0f5454);color:#eaffff;border-color:rgba(170,255,255,0.08);box-shadow:0 14px 40px rgba(16,54,54,0.6),0 0 20px rgba(34,197,94,0.06)}
 
 @media (max-width:900px){.grid{grid-template-columns:repeat(3,1fr)}}
 @media (max-width:640px){.grid{grid-template-columns:repeat(2,1fr);gap:12px}:root{--btn-h:60px;--gap:12px;--radius:12px}.wrap{padding:16px}.top{flex-direction:column;align-items:center;gap:8px}.foot{margin-top:20px;margin-bottom:10px}}
-@media (orientation:landscape) and (max-height:460px){body{padding:10px}.wrap{padding:12px}.neo-btn{height:56px;font-size:15px}.status{font-size:13px}}
-@media (max-width:640px){.wrap{background:linear-gradient(180deg,rgba(8,20,20,0.24),rgba(2,8,10,0.36))}.neo-btn,.week-btn{height:62px;font-size:15px}}
-@media (orientation:landscape) and (max-height:440px){.wrap{padding:12px}.neo-btn,.week-btn{height:54px;font-size:14px}}
+@media (orientation:landscape) and (max-height:460px){body{padding:10px}.wrap{padding:12px}.neo-btn{height:56px} :root{--btn-text-size:15px}.status{font-size:13px}}
+@media (max-width:640px){.wrap{background:linear-gradient(180deg,rgba(8,20,20,0.24),rgba(2,8,10,0.36))}.neo-btn,.week-btn{height:62px} :root{--btn-text-size:15px}}
+@media (orientation:landscape) and (max-height:440px){.wrap{padding:12px}.neo-btn,.week-btn{height:54px} :root{--btn-text-size:14px}}
 
 .neo-btn.btn-2::after{content:"Hafta 2"}
 .neo-btn.btn-3::after{content:"Hafta 3"}
@@ -105,25 +107,11 @@ body{
 .neo-btn.btn-11::after{content:"Hafta 11"}
 .neo-btn.btn-12::after{content:"Hafta 12"}
 .neo-btn.btn-13::after{content:"Hafta 13"}
-.neo-btn.btn-s::after{
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 55px;
-  height: 55px;
-  background-image: url('./assets/gif/transparent-rubber-duck.gif');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  z-index: 2;
-  opacity: 1;
-}
+.neo-btn.btn-s::after{display:none} /* replaced by lottie host */
 
-/* header/special button shouldn't show the left arrow */
+/* lottie player host for the special button */
+.neo-btn .lottie-host{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:45px;pointer-events:none;z-index:3}
+
 .neo-btn.btn-s::before{display:none}
-
-/* keep the icon visible on hover (override generic translate out) */
-.neo-btn.btn-s:hover::after{transform:translate(-50%,-50%);opacity:1}
+.neo-btn.btn-s:hover .lottie-host{transform:translate(-50%,-50%)}
 

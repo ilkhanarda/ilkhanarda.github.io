@@ -6,6 +6,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const pressDuration = 160;
 
+  const lottieAvailable = typeof window.lottie !== 'undefined';
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (lottieAvailable) {
+    const special = document.querySelector('.neo-btn.btn-s');
+    if (special) {
+      const host = document.createElement('div');
+      host.className = 'lottie-host';
+      special.appendChild(host);
+
+      try {
+        const anim = window.lottie.loadAnimation({
+          container: host,
+          renderer: 'svg',
+          loop: true,
+          autoplay: !prefersReduced || true,
+          path: 'assets/animations/system-regular-134-celebration-hover-celebration.json'
+        });
+
+        special.addEventListener('pointerdown', (e) => {
+          e.preventDefault();
+          special.classList.add('pressed');
+          try { anim.goToAndPlay(0, true); } catch (err) {}
+        });
+        special.addEventListener('pointerup', () => special.classList.remove('pressed'));
+        special.addEventListener('pointerleave', () => special.classList.remove('pressed'));
+      } catch (e) {
+        // fallback: do nothing
+        // console.warn('lottie init failed', e);
+      }
+    }
+  }
+
   function flashPress(el) {
     el.classList.add('pressed');
     setTimeout(() => el.classList.remove('pressed'), pressDuration);
