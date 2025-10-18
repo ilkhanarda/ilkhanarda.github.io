@@ -58,7 +58,15 @@ body{
 .neo-btn .label{display:none}
 
 .neo-btn::after{
-  content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) translateX(0);z-index:2;color:var(--btn-text-color);font-weight:700;font-size:var(--btn-text-size);white-space:nowrap;pointer-events:none;transition:transform 320ms cubic-bezier(.2,.9,.2,1),opacity 240ms ease;opacity:1;will-change:transform,opacity;text-align:center
+  content:"";
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%) translateX(0);z-index:2;
+  color:var(--btn-text-color);font-weight:700;font-size:var(--btn-text-size);
+  white-space:nowrap;pointer-events:none;
+  transition:transform 320ms cubic-bezier(.2,.9,.2,1),opacity 240ms ease;
+  opacity:1;will-change:transform,opacity;text-align:center
 }
 
 .neo-btn:hover::after{transform:translate(-50%,-50%) translateX(120%);opacity:0}

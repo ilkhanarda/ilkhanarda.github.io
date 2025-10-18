@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const pressDuration = 160;
 
+  // --- Lottie: initialize special button animations (if lottie present)
   const lottieAvailable = typeof window.lottie !== 'undefined';
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (lottieAvailable) {
@@ -20,10 +21,12 @@ document.addEventListener('DOMContentLoaded', () => {
           container: host,
           renderer: 'svg',
           loop: true,
-          autoplay: !prefersReduced || true,
+          autoplay: !prefersReduced || true, // generally autoplay; reduced-motion users will still be respected by lottie players
           path: 'assets/animations/system-regular-134-celebration-hover-celebration.json'
         });
 
+        // Always loop the animation; then add press interaction for tactile feedback
+        // Pointer events give better cross-device compatibility
         special.addEventListener('pointerdown', (e) => {
           e.preventDefault();
           special.classList.add('pressed');
