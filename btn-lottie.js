@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
       animation.goToAndStop(0, true);
     });
 
-    // 🔹 Tıklanınca ilgili HTML sayfasına git
     button.addEventListener('click', () => {
       const target = button.dataset.target;
       if (target) window.location.href = target;

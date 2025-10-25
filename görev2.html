@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Görev 2</title>
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="shiny-text.css">
+  <link rel="stylesheet" href="btn-lottie.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body { 
+      align-items: stretch;
+      justify-content: flex-start;
+      min-height: 100vh;
+      display: flex;
+    }
+
+    .wrap {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 28px;
+      padding-bottom: 0;
+      background: transparent; 
+    }
+
+    .top { 
+      align-items: center; 
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .top > .neo-btn-lottie { 
+      width: var(--btn-h); 
+      min-width: var(--btn-h); 
+      height: var(--btn-h); 
+      padding: 0; 
+      border-radius: 10px; 
+    }
+    .top h1 { 
+      flex: 1; 
+      text-align: center; 
+      margin: 0; 
+    }
+    .top > .ghost { 
+      width: var(--btn-h); 
+      min-width: var(--btn-h); 
+      height: var(--btn-h); 
+    }
+
+    .foot {
+      margin-top: auto;
+      padding-top: 28px;
+      padding-bottom: 28px;
+    }
+
+    .homework-section {
+      margin-bottom: 48px;
+      background: rgba(8,20,20,0.18);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .homework-section-venn {
+      margin-bottom: 48px;
+      background: rgba(8,20,20,0.18);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 28px 28px 98px 28px;
+    }
+
+    .homework-section h2 {
+      color: #e6f3f2;
+      font-size: 26px;
+      margin: 0 0 24px 0;
+      font-weight: 700;
+      text-align: left;
+    }
+
+    .venn-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .venn-container {
+      position: relative;
+      width: 300px;
+      height: 300px;
+    }
+    .venn-circle {
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      opacity: 0.7;
+      mix-blend-mode: screen;
+    }
+    .venn-red {
+      background: red;
+      left: 0px;
+      top: 60px;
+    }
+    .venn-green {
+      background: limegreen;
+      left: 110px;
+      top: 60px;
+    }
+    .venn-blue {
+      background: royalblue;
+      left: 55px;
+      top: 170px;
+    }
+
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+    .homework-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: #ffffff;
+      color: #0f1f1f;
+      box-shadow: 0 10px 24px rgba(2,8,10,0.08);
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #d7dfeb;
+      min-width: 720px;
+    }
+    .homework-table thead th {
+      background: linear-gradient(180deg,#f5f7fb,#eaeef7);
+      color: #0b1a1a;
+      text-align: center;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 14px 12px;
+      border-bottom: 1px solid #d7dfeb;
+    }
+    .homework-table tbody td {
+      padding: 14px 12px;
+      text-align: center;
+      border-bottom: 1px solid #eef2f7;
+      font-size: 14px;
+    }
+    .homework-table tbody tr:nth-child(even) {
+      background: #fafbff;
+    }
+    .homework-table tbody tr:hover {
+      background: #eef6ff;
+    }
+    .homework-table thead th:first-child,
+    .homework-table tbody td:first-child {
+      text-align: center;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+    .homework-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    @media (max-width: 900px) { 
+      .wrap { padding: 20px; }
+      .homework-section { padding: 20px; }
+    }
+    @media (max-width: 640px) { 
+      .wrap { padding: 16px; }
+      .top h1 { font-size: 26px; }
+      .homework-section { padding: 16px; }
+      .homework-section h2 { font-size: 22px; }
+      .venn-container { width: 240px; height: 240px; }
+      .venn-circle { width: 140px; height: 140px; }
+      .venn-red { left: 0; top: 50px; }
+      .venn-green { left: 90px; top: 50px; }
+      .venn-blue { left: 45px; top: 140px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <button class="neo-btn-lottie btn-back" aria-label="Geri" data-target="index.html">
+        <div class="lottie-arrow"></div>
+      </button>
+      <h1 class="shiny-text">Görev 2</h1>
+      <button class="neo-btn ghost" aria-hidden="true" tabindex="-1"></button>
+    </header>
+
+    <section class="homework-section-venn">
+      <h2>Bitişik Daireler</h2>
+      <div class="venn-wrapper">
+        <div class="venn-container">
+          <div class="venn-circle venn-red"></div>
+          <div class="venn-circle venn-green"></div>
+          <div class="venn-circle venn-blue"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="homework-section">
+      <h2>Haftalık Ders Programı</h2>
+      <div class="table-wrapper">
+        <table class="homework-table">
+          <thead>
+            <tr>
+              <th>Saat</th>
+              <th>Pazartesi</th>
+              <th>Salı</th>
+              <th>Çarşamba</th>
+              <th>Perşembe</th>
+              <th>Cuma</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>08:40 - 09:30</td>
+              <td>BTE307 <br> Eğitimde Modelleme ve Tasarım <br> Dr. A. ÖZKÖK</td>
+              <td></td>
+              <td>BTE 311 <br> İnternet Tabanlı Programlama <br> Dr. E. KIDIMAN</td>
+              <td>EGT303 <br> Eğitimde Etik ve Ahlak <br> Dr.Öğretim Üyesi Zeynep ŞEN</td>
+              <td></td>
+          </tr>
+          <tr>
+              <td>09:40 - 10:30</td>
+              <td>BTE313 <br> Eğitimde Modelleme ve Tasarım <br> Dr. A. ÖZKÖK</td>
+              <td></td>
+              <td>BTE 311 <br> İnternet Tabanlı Programlama <br> Dr. E. KIDIMAN</td>
+              <td>EGT303 <br> Eğitimde Etik ve Ahlak <br> Dr.Öğretim Üyesi Zeynep ŞEN</td>
+              <td></td>
+          </tr>
+          <tr>
+              <td>10:40 - 11:30</td>
+              <td></td>
+              <td>EGT304 <br> Sınıf Yönetimi <br> Doç. Dr. Leyla Y. FINDIK</td>
+              <td>BTE 311 <br> İnternet Tabanlı Programlama <br> Dr. E. KIDIMAN</td>
+              <td></td>
+              <td></td>
+          </tr>
+          <tr>
+              <td>11:40 - 12:30</td>
+              <td>GKS111 <br> Sanat ve Estetik <br> Öğr. Gör. Dr. Elif D. DİZİÖZ</td>
+              <td>EGT304 <br> Sınıf Yönetimi <br> Doç. Dr. Leyla Y. FINDIK</td>
+              <td>BTE 311 <br> İnternet Tabanlı Programlama <br> Dr. E. KIDIMAN</td>
+              <td></td>
+              <td></td>
+          </tr>
+          <tr>
+              <td>12:40 - 13:30</td>
+              <td>GKS111 <br> Sanat ve Estetik <br> Öğr. Gör. Dr. Elif D. DİZİÖZ</td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+          </tr>
+          <tr>
+              <td>13:40 - 14:30</td>
+              <td>BTE307 <br> Eğitimde Modelleme ve Tasarım <br> Dr. A. ÖZKÖK</td>
+              <td>EGT454 <br> Okul Dışı Öğrenme Ortamları <br> Prof. Dr. Ahmet İ. ŞEN</td>
+              <td>BTE313 <br> Eğitsel Video Tasarımı <br> Dr. P. NUHOĞLU KİBAR</td>
+              <td></td>
+              <td></td>
+          </tr>
+          <tr>
+              <td>14:40 - 15:30</td>
+              <td>BTE307 <br> Eğitimde Modelleme ve Tasarım <br> Dr. A. ÖZKÖK</td>
+              <td>EGT454 <br> Okul Dışı Öğrenme Ortamları <br> Prof. Dr. Ahmet İ. ŞEN</td>
+              <td>Eğitsel Video Tasarımı <br> Dr. P. NUHOĞLU KİBAR</td>
+              <td></td>
+              <td></td>
+          </tr>
+          <tr>
+              <td>15:40 - 16:30</td>
+              <td></td>
+              <td>GKS107 <br> Bilim Tarihi ve Felsefesi <br> Prof. Dr. Celal BAYRAK</td>
+              <td>BTE309 <br> Bilişim Öğretim Programları <br> Prof. Dr. Arif ALTUN</td>
+              <td>EGT353 <br> Karakter ve Değer Eğitimi <br> Dr. Nursel YARDİBİ</td>
+              <td></td>
+          </tr>
+          <tr>
+              <td>16:40 - 17:30</td>
+              <td></td>
+              <td>GKS107 <br> Bilim Tarihi ve Felsefesi <br> Prof. Dr. Celal BAYRAK</td>
+              <td>BTE309 <br> Bilişim Öğretim Programları <br> Prof. Dr. Arif ALTUN</td>
+              <td>EGT353 <br> Karakter ve Değer Eğitimi <br> Dr. Nursel YARDİBİ</td>
+              <td></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <small>Hazırlayan: İlkhan Arda AKMACA 2220780023 | 2025/2026</small>
+    </footer>
+  </main>
+
+  <!-- Lottie animasyon ve davranış betikleri -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.6/lottie.min.js" defer></script>
+  <script src="main.js" defer></script>
+  <script src="btn-lottie.js" defer></script>
+</body>
+</html>

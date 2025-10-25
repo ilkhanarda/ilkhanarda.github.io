@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const pressDuration = 160;
 
-  // --- Lottie: initialize special button animations (if lottie present)
   const lottieAvailable = typeof window.lottie !== 'undefined';
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (lottieAvailable) {
@@ -25,8 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
           path: 'assets/animations/system-regular-134-celebration-hover-celebration.json'
         });
 
-        // Always loop the animation; then add press interaction for tactile feedback
-        // Pointer events give better cross-device compatibility
         special.addEventListener('pointerdown', (e) => {
           e.preventDefault();
           special.classList.add('pressed');
@@ -35,8 +32,6 @@ document.addEventListener('DOMContentLoaded', () => {
         special.addEventListener('pointerup', () => special.classList.remove('pressed'));
         special.addEventListener('pointerleave', () => special.classList.remove('pressed'));
       } catch (e) {
-        // fallback: do nothing
-        // console.warn('lottie init failed', e);
       }
     }
   }
@@ -62,9 +57,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function handleAction(el) {
     const week = el.dataset.week;
-    if (!week) return;
-    flashPress(el);
-    selectWeek(week, el);
+    const target = el.dataset.target;
+    
+    if (week) {
+      flashPress(el);
+      selectWeek(week, el);
+    }
+    
+    if (target) {
+      setTimeout(() => {
+        window.location.href = target;
+      }, pressDuration);
+    }
   }
 
   buttons.forEach(btn => {
