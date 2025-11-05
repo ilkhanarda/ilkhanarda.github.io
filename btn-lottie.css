@@ -41,13 +41,12 @@
   opacity: 1;
 }
 
-/* Minimal, transparent back button with symmetric hover animation */
 .plain-back-btn {
   background: rgba(30,56,68,0.7);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 10px;
   height: var(--btn-h, 56px);
-  padding: 0 15px; /* sağ-sol 15px boşluk */
+  padding: 0 15px;
   color: white;
   font-weight: 600;
   font-size: 16px;
@@ -60,7 +59,6 @@
   user-select: none;
   outline: none;
   overflow: hidden;
-  /* başka efekt olmasın */
   box-shadow: none;
   transition: none;
 }
@@ -76,7 +74,7 @@
 }
 
 .plain-back-btn:hover::after {
-  transform: translate(-150%, -50%); /* simetrik: yazı sola kayar */
+  transform: translate(-150%, -50%);
   opacity: 0;
 }
 
@@ -84,7 +82,7 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translateY(-50%) translateX(100%) scaleX(-1); /* sağdan gelsin ve oku sola çevir */
+  transform: translateY(-50%) translateX(100%) scaleX(-1);
   width: 52px;
   height: 52px;
   opacity: 0;

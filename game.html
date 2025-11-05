@@ -74,7 +74,6 @@
       cursor: none;
     }
 
-    /* Game UI */
     .game-ui {
       position: absolute;
       top: 20px;
@@ -112,7 +111,6 @@
       font-size: 20px;
     }
 
-    /* Game Over Screen */
     .game-over-screen {
       position: absolute;
       top: 50%;
@@ -164,7 +162,6 @@
       box-shadow: 0 12px 32px rgba(18,192,192,0.5);
     }
 
-    /* Start Screen */
     .start-screen {
       position: absolute;
       top: 50%;
@@ -260,7 +257,6 @@
     <div class="game-container">
       <canvas id="gameCanvas"></canvas>
 
-      <!-- Game UI -->
       <div class="game-ui">
         <div class="score-display">
           Score: <span id="score">0</span>
@@ -272,7 +268,6 @@
         </div>
       </div>
 
-      <!-- Start Screen -->
       <div class="start-screen" id="startScreen">
         <h2>🚀 SPACE SHOOTER 🚀</h2>
         <p>Düşman gemilerini yok et ve hayatta kal!</p>
@@ -289,11 +284,10 @@
         <button class="restart-btn" onclick="startGame()">Oyuna Başla</button>
       </div>
 
-      <!-- Game Over Screen -->
       <div class="game-over-screen" id="gameOverScreen">
-        <h2>💥 GAME OVER 💥</h2>
+        <h2>💥 Oyun Bitti! 💥</h2>
         <div class="final-score">
-          Final Score: <span id="finalScore">0</span>
+          Final Skoru: <span id="finalScore">0</span>
         </div>
         <button class="restart-btn" onclick="restartGame()">Tekrar Oyna</button>
       </div>
@@ -317,7 +311,6 @@
     const startScreen = document.getElementById('startScreen');
     const finalScoreDisplay = document.getElementById('finalScore');
 
-    // Canvas boyutlarını ayarla
     function resizeCanvas() {
       const rect = canvas.getBoundingClientRect();
       canvas.width = rect.width;
@@ -326,7 +319,6 @@
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Game variables
     let gameRunning = false;
     let gamePaused = false;
     let score = 0;
