@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karakter Kartları</title>
+  <style>
+    /* Responsive grid */
+    .container {
+      display: grid;
+      gap: 16px;
+      padding: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    @media (min-width: 576px) {
+      .container { grid-template-columns: repeat(2, 1fr); } /* sm */
+    }
+
+    @media (min-width: 768px) {
+      .container { grid-template-columns: repeat(3, 1fr); } /* md */
+    }
+
+    @media (min-width: 992px) {
+      .container { grid-template-columns: repeat(6, 1fr); } /* lg */
+    }
+
+    /* Kart stili */
+    .card {
+      background-color: #101820;
+      background-image: url('lab2 assets/7c47a6c70640604c5cd6df7cd5faef7e.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      overflow: hidden;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      transition: all 0.25s ease-out;
+      border: 1px solid #5f5e63;
+      position: relative;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(16, 24, 32, 0.7);
+      z-index: 0;
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('lab2 assets/Unknown.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease, z-index 0.4s ease;
+    }
+
+    .card:hover::after {
+      z-index: 10;
+      opacity: 1;
+    }
+
+    .card img,
+    .card h3 {
+      position: relative;
+      z-index: 2;
+    }
+
+    .card img {
+      z-index: 2;
+    }
+
+    .card h3 {
+      z-index: 100;
+    }
+
+    /* Görsel kendi boyutuna göre uzasın */
+    .card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: filter 0.25s ease-out;
+    }
+
+    .card:hover img {
+      filter: brightness(1.15) contrast(1.05);
+    }
+
+    /* İsim kısmı */
+    .card h3 {
+      position: relative;
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      background-color: #000000;
+      color: #ffffff;
+      padding: 12px 0;
+      transition: background-color 0.3s ease;
+      z-index: 100;
+    }
+
+    .card:hover h3 {
+      background-color: #ff0000;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <img src="lab2 assets/r6-operators-list-jager.png.avif" alt="Lion">
+      <h3>JÄGER</h3>
+    </div>
+    <div class="card">
+      <img src="lab2 assets/r6-operators-list-bandit.png.avif" alt="Finka">
+      <h3>BANDIT</h3>
+    </div>
+    <div class="card">
+      <img src="lab2 assets/r6-operators-list-blitz.png.avif" alt="Vigil">
+      <h3>BLITZ</h3>
+    </div>
+    <div class="card">
+      <img src="lab2 assets/r6-operators-list-iq.png.avif" alt="Dokkaebi">
+      <h3>IQ</h3>
+    </div>
+    <div class="card">
+      <img src="lab2 assets/r6s-operators-list-tachanka.png.avif" alt="Lion">
+      <h3>TACHANKA</h3>
+    </div>
+    <div class="card">
+      <img src="lab2 assets/r6-operators-list-glaz.png.avif" alt="Finka">
+      <h3>GLAZ</h3>
+    </div>
+    <div class="card">
+      <img src="lab2 assets/r6-operators-list-fuze.png.avif" alt="Vigil">
+      <h3>FUZE</h3>
+    </div>
+    <div class="card">
+      <img src="lab2 assets/r6-operators-list-kapkan.png.avif" alt="Dokkaebi">
+      <h3>KAPKAN</h3>
+    </div>
+    <div class="card">
+      <img src="lab2 assets/r6-operators-list-doc.png.avif" alt="Lion">
+      <h3>DOC</h3>
+    </div>
+    <div class="card">
+      <img src="lab2 assets/r6-operators-list-rook.png.avif" alt="Finka">
+      <h3>ROOK</h3>
+    </div>
+    <div class="card">
+      <img src="lab2 assets/r6-operators-list-montagne.png.avif" alt="Vigil">
+      <h3>MONTAGNE</h3>
+    </div>
+    <div class="card">
+      <img src="lab2 assets/r6-operators-list-twitch.png.avif" alt="Dokkaebi">
+      <h3>TWITCH</h3>
+    </div>
+    </div>
+  </div>
+</body>
+</html>

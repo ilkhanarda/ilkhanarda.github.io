@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kart Düzeni</title>
+  <style>
+    .container {
+      display: grid;
+      gap: 16px;
+      padding: 16px;
+    }
+
+    /* X-Small (varsayılan) -> 1 sütun */
+    .container {
+      grid-template-columns: repeat(1, 1fr);
+    }
+
+    /* Small (≥576px) -> 2 sütun */
+    @media (min-width: 576px) {
+      .container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Medium (≥768px) -> 3 sütun */
+    @media (min-width: 768px) {
+      .container {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* Large (≥992px) -> 6 sütun */
+    @media (min-width: 992px) {
+      .container {
+        grid-template-columns: repeat(6, 1fr);
+      }
+    }
+
+    .card {
+      background-color: #4fa3f7;
+      border-radius: 10px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">Kart 1</div>
+    <div class="card">Kart 2</div>
+    <div class="card">Kart 3</div>
+    <div class="card">Kart 4</div>
+    <div class="card">Kart 5</div>
+    <div class="card">Kart 6</div>
+  </div>
+</body>
+</html>
