@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
           container: host,
           renderer: 'svg',
           loop: true,
-          autoplay: !prefersReduced || true, // generally autoplay; reduced-motion users will still be respected by lottie players
+          autoplay: !prefersReduced || true,
           path: 'assets/animations/system-regular-134-celebration-hover-celebration.json'
         });
 
