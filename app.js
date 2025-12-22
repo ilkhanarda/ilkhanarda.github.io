@@ -15,7 +15,7 @@ const scriptLines = [
 ];
 
 // Allowed routes (validate + suggest)
-const ROUTES = ["görev1","görev2","görev3","görev4","görev5","görev6","Lab-1"];
+const ROUTES = ["görev1","görev2","görev3","görev4","görev5","görev6","lab-1"];
 
 // ---- DOM ----
 const thread = document.getElementById("thread");
