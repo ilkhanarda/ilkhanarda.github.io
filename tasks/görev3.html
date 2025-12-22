@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Görev 3 - ANİMASYONLU DAİRELER</title>
+
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>  
+    ody { 
+      align-items: stretch;
+      justify-content: flex-start;
+      min-height: 100vh;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    .wrap {
+      width: 100%;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 28px;
+      padding-bottom: 0;
+      background: transparent; 
+    }
+
+    .top { 
+      align-items: center; 
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .top > .neo-btn-lottie { 
+      width: var(--btn-h); 
+      min-width: var(--btn-h); 
+      height: var(--btn-h); 
+      padding: 0; 
+      border-radius: 10px; 
+    }
+    .top h1 { 
+      flex: 1; 
+      text-align: center; 
+      margin: 0; 
+    }
+    .top > .ghost { 
+      width: var(--btn-h); 
+      min-width: var(--btn-h); 
+      height: var(--btn-h); 
+    }
+
+    .foot {
+      margin-top: auto;
+      padding-top: 28px;
+      padding-bottom: 28px;
+    }
+
+    .circle-section{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 20px;
+        min-height: 60vh;
+        align-content: center;
+    }
+
+    .circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #0A84FF;
+            display: inline-block;
+        }
+
+       
+        .up-down {
+            animation: upDown 3s infinite alternate;
+        }
+
+        @keyframes upDown {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100px); }
+        }
+
+        
+        .grow-shrink {
+            animation: growShrink 2s infinite alternate;
+        }
+
+        @keyframes growShrink {
+            0% { transform: scale(1); background-color: #0A84FF; }
+            100% { transform: scale(1.5); background-color: #FF3B30; }
+        }
+
+        
+        .fade-in-out {
+            animation: fadeInOut 2.5s infinite alternate;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+      
+        .left-right {
+            animation: leftRight 2s infinite alternate;
+        }
+
+        @keyframes leftRight {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100px); }
+        }
+
+  
+        .rotate {
+            animation: rotation 1.5s infinite linear;
+        }
+
+        @keyframes rotation {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+      .thread,
+        body .stage > .card > .thread {
+        padding: 0 !important;
+    }
+
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <h1 class="shiny-text">Görev 3</h1>
+    </header>
+    <section class="circle-section">
+        <div class="circle up-down"></div>
+        <div class="circle grow-shrink"></div>
+        <div class="circle fade-in-out"></div>
+        <div class="circle left-right"></div>
+        <div class="circle rotate" style=" border: 6px dashed rgb(255, 255, 255);"</div>
+    </section>
+    <footer class="foot">
+      <small>Hazırlayan: İlkhan Arda AKMACA 2220780023 | 2025/2026</small>
+    </footer>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.6/lottie.min.js" defer></script>
+  <script src="main.js" defer></script>
+  <script src="btn-lottie.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BTE311 — Görev</title>
+
+  <link rel="stylesheet" href="stylesmain.css" />
+  <link rel="stylesheet" href="task-fullscreen.css" />
+  <script src="task.js" defer></script>
+  <style>
+  :root{ --win-pad: 22px; --win-radius: 22px; }
+
+  html, body { height: 100% !important; }
+  body { margin: 0 !important; overflow: hidden !important; }
+
+  /* Stage: fullscreen ama içeriden paddingli */
+  main.stage{
+    position: fixed !important;
+    inset: 0 !important;
+
+    padding: var(--win-pad) !important;
+    margin: 0 !important;
+
+    z-index: 10 !important;
+    display: block !important;
+    background: transparent !important;
+  }
+
+  /* Card: pencere gibi (radius + shadow) */
+  main.stage > section.card{
+    width: calc(100vw - (var(--win-pad) * 2)) !important;
+    height: calc(100vh - (var(--win-pad) * 2)) !important;
+
+    max-width: none !important;
+    max-height: none !important;
+    margin: 0 !important;
+
+    border-radius: var(--win-radius) !important;
+    overflow: hidden !important;
+
+    box-shadow: 0 30px 90px rgba(0,0,0,.18) !important;
+    border: 1px solid rgba(0,0,0,.08) !important;
+
+    transform: none !important;
+    position: relative !important;
+
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  main.stage > section.card > header.topbar{
+    flex: 0 0 auto !important;
+    border-radius: 0 !important;
+  }
+
+  main.stage > section.card > div.thread{
+    flex: 1 1 auto !important;
+    overflow: auto !important;
+    height: auto !important;
+  }
+
+  main.stage > section.card > footer.composer{
+    flex: 0 0 auto !important;
+    border-radius: 0 !important;
+  }
+
+  /* Mobilde padding/radius küçülsün */
+  @media (max-width: 700px){
+    :root{ --win-pad: 10px; --win-radius: 16px; }
+  }
+
+  /* Topbar hizalama fix */
+.topbar{
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 12px !important;
+  min-height: 56px !important;
+  padding: 12px 16px !important;
+}
+
+.top-left{
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+}
+
+.status{
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  align-self: center !important; /* aşağı kaymayı engeller */
+}
+</style>
+</head>
+<body>
+<div class="wallpaper wallpaper-light" aria-hidden="true"></div>
+  <main class="stage">
+    <section class="card" aria-label="Görev sayfası">
+      <header class="topbar">
+        <div class="top-left">
+          <div class="window-controls" aria-hidden="true">
+            <span class="wc wc-close"></span>
+            <span class="wc wc-min"></span>
+            <span class="wc wc-zoom"></span>
+          </div>
+          <div class="title">
+            <strong id="taskTitle">BTE311 — Görev</strong>
+          </div>
+        </div>
+
+        <div class="status" aria-hidden="true">
+          <span class="online-dot"></span>
+          Online
+        </div>
+      </header>
+
+    <div class="thread">
+      <div id="taskContent"></div>
+    </div>
+
+      <footer class="composer">
+        <div class="quickbar">
+          <span class="pill-tag">Kısayollar</span>
+          <button class="pill-btn" type="button" id="backHome">Ana sayfa</button>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <!-- toast -->
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>

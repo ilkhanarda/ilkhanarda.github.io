@@ -1,0 +1,210 @@
+/* task-fullscreen.css — ABSOLUTE fullscreen override for task.html */
+
+html, body { height: 100% !important; }
+body { margin: 0 !important; }
+
+/* Wallpaper katmanları arkada kalsın */
+.wallpaper, .atmo, #snow {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Stage + Card her şeyi ezsin */
+body .stage{
+  position: relative !important;
+  z-index: 5 !important;
+
+  width: 100vw !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+
+  padding: 0 !important;
+  margin: 0 !important;
+
+  display: block !important;
+}
+
+/* Card = full window */
+body .stage > .card{
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: none !important;
+  max-height: none !important;
+
+  margin: 0 !important;
+  border-radius: 0 !important;
+
+  /* kartı ortalayan her şeyi iptal */
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+
+  /* gölge vs kaldır */
+  box-shadow: none !important;
+
+  /* içerik düzeni */
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Topbar sabit üstte */
+body .stage > .card > .topbar{
+  flex: 0 0 auto !important;
+  border-radius: 0 !important;
+}
+
+/* Thread kalan alan */
+body .stage > .card > .thread{
+  flex: 1 1 auto !important;
+  height: auto !important;
+  overflow: auto !important;
+
+}
+
+/* Footer altta */
+body .stage > .card > .composer{
+  flex: 0 0 auto !important;
+  border-radius: 0 !important;
+}
+
+/* HUD varsa gizle (task sayfasında istemiyoruz) */
+.hud{ display: none !important; }
+
+/* Scrollbar (macOS tadı) */
+body .stage > .card > .thread::-webkit-scrollbar { width: 10px; }
+body .stage > .card > .thread::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,.18);
+  border-radius: 999px;
+}
+body .stage > .card > .thread::-webkit-scrollbar-track { background: transparent; }
+
+@media (prefers-color-scheme: dark){
+  body .stage > .card > .thread::-webkit-scrollbar-thumb { background: rgba(255,255,255,.18); }
+}
+
+/* ==== Unified Theme Tokens (IndexMain ile tutarlı) ==== */
+:root{
+  --ui-text: rgba(17,17,17,.88);
+  --ui-muted: rgba(17,17,17,.55);
+  --ui-border: rgba(0,0,0,.08);
+
+  --ui-surface: rgba(255,255,255,.72);
+  --ui-surface-strong: rgba(255,255,255,.86);
+  --ui-pill: rgba(0,0,0,.06);
+
+  --ui-accent: #0A84FF;  /* Apple blue */
+  --ui-success: #34C759; /* Apple green */
+  --ui-danger: #FF3B30;
+}
+
+/* ==== Topbar (Title + blur + border) ==== */
+.topbar{
+  background: var(--ui-surface) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border-bottom: 1px solid var(--ui-border) !important;
+}
+
+.topbar .title strong,
+#taskTitle{
+  color: var(--ui-text) !important;
+  font-weight: 800 !important;
+  letter-spacing: .2px;
+}
+.topbar .subtitle{
+  color: var(--ui-muted) !important;
+}
+
+/* ==== Online status pill ==== */
+.status{
+  color: var(--ui-muted) !important;
+  background: var(--ui-pill) !important;
+  border: 1px solid var(--ui-border) !important;
+  padding: 6px 10px !important;
+  border-radius: 999px !important;
+}
+
+.online-dot{
+  background: var(--ui-success) !important;
+  box-shadow: 0 0 0 4px rgba(52,199,89,.18) !important;
+}
+
+/* ==== Composer / Quickbar ==== */
+.composer{
+  background: var(--ui-surface) !important;
+  border-top: 1px solid var(--ui-border) !important;
+}
+
+.pill-tag{
+  color: var(--ui-muted) !important;
+  background: var(--ui-pill) !important;
+  border: 1px solid var(--ui-border) !important;
+}
+
+.pill-btn{
+  color: var(--ui-text) !important;
+  background: var(--ui-surface-strong) !important;
+  border: 1px solid var(--ui-border) !important;
+  border-radius: 999px !important;
+}
+
+.pill-btn:hover{
+  box-shadow: 0 10px 24px rgba(0,0,0,.08) !important;
+  transform: translateY(-1px);
+}
+
+/* ==== Toast (tutarlı) ==== */
+.toast{
+  background: var(--ui-surface-strong) !important;
+  color: var(--ui-text) !important;
+  border: 1px solid var(--ui-border) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+}
+
+/* ==== Fullscreen ama macOS window gibi: inset + radius + shadow ==== */
+main.stage{
+  padding: 22px !important;              /* kenarlardan boşluk */
+  background: transparent !important;
+  overflow: hidden !important;
+}
+
+main.stage > section.card{
+  width: auto !important;
+  height: auto !important;
+  max-width: none !important;
+  max-height: none !important;
+
+  /* inset alanı doldursun */
+  flex: 1 1 auto !important;
+
+  /* macOS window look */
+  border-radius: 22px !important;
+  box-shadow: 0 30px 90px rgba(0,0,0,.18) !important;
+  border: 1px solid var(--ui-border) !important;
+  overflow: hidden !important;
+}
+
+/* Topbar ve composer da pencereye uyum sağlasın */
+.topbar{
+  border-top-left-radius: 22px !important;
+  border-top-right-radius: 22px !important;
+}
+
+.composer{
+  border-bottom-left-radius: 22px !important;
+  border-bottom-right-radius: 22px !important;
+}
+
+/* Mobilde boşluğu azalt */
+@media (max-width: 700px){
+  main.stage{ padding: 10px !important; }
+  main.stage > section.card{ border-radius: 16px !important; }
+}
+
+

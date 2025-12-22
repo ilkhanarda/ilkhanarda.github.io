@@ -2,49 +2,87 @@
 <html lang="tr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>İlkhan Arda AKMACA</title>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="shiny-text.css">
-  <link rel="stylesheet" href="btn-lottie.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <style>
-    .top .neo-btn-lottie {
-      min-width: 100px;
-    }
-  </style>
+
+  <link rel="stylesheet" href="stylesmain.css" />
+  <script src="app.js" defer></script>
 </head>
 <body>
-  <main class="wrap">
-    <header class="top">
-  <h1 class="shiny-text">BTE311 — Web Tabanlı Programlama Ödevleri</h1>
-  <button class="neo-btn-lottie btn-2" data-week="2" aria-label="Lab" data-target="labindex.html"><div class="lottie-arrow"></div></button>
-  <!-- <button class="neo-btn btn-s" data-week="14" aria-label="S" data-target="game.html"></button> -->
-    </header>
+  <div class="wallpaper wallpaper-light" aria-hidden="true"></div>
+  <div class="wallpaper wallpaper-dark" aria-hidden="true"></div>
+  <div class="atmo" aria-hidden="true"></div>
+  <canvas id="snow" aria-hidden="true"></canvas>
 
-     <section class="grid" role="list" aria-label="Hafta seçenekleri">
-      <button class="neo-btn-lottie btn-2" data-week="2" aria-label="Görev 1" data-target="görev1.html"><div class="lottie-arrow"></div></button>
-      <button class="neo-btn-lottie btn-3" data-week="3" aria-label="Görev 2" data-target="görev2.html"><div class="lottie-arrow"></div></button>
-      <button class="neo-btn-lottie btn-4" data-week="3" aria-label="Görev 3" data-target="görev3.html"><div class="lottie-arrow"></div></button>
-      <button class="neo-btn-lottie btn-4" data-week="3" aria-label="Görev 4" data-target="görev4.html"><div class="lottie-arrow"></div></button>
-      <button class="neo-btn-lottie btn-6" data-week="6" aria-label="Görev 5" data-target="görev5.html"><div class="lottie-arrow"></div></button>
-      <!-- <button class="neo-btn-lottie btn-7" data-week="7" aria-label="Hafta 7" data-target="hafta7.html"><div class="lottie-arrow"></div></button>
-      <button class="neo-btn-lottie btn-8" data-week="8" aria-label="Hafta 8" data-target="hafta8.html"><div class="lottie-arrow"></div></button>
-      <button class="neo-btn-lottie btn-9" data-week="9" aria-label="Hafta 9" data-target="hafta9.html"><div class="lottie-arrow"></div></button>
-      <button class="neo-btn-lottie btn-10" data-week="10" aria-label="Hafta 10" data-target="hafta10.html"><div class="lottie-arrow"></div></button>
-      <button class="neo-btn-lottie btn-11" data-week="11" aria-label="Hafta 11" data-target="hafta11.html"><div class="lottie-arrow"></div></button>
-      <button class="neo-btn-lottie btn-12" data-week="12" aria-label="Hafta 12" data-target="hafta12.html"><div class="lottie-arrow"></div></button>
-      <button class="neo-btn-lottie btn-13" data-week="13" aria-label="Hafta 13" data-target="hafta13.html"><div class="lottie-arrow"></div></button>  -->
+  <!-- HUD (outside the card) -->
+  <div class="hud" aria-label="Saat ve Christmas Mode">
+  <label class="toggle" title="Christmas Mode">
+    <span>Christmas Mode</span>
+    <input id="xmasToggle" type="checkbox" />
+    <span class="slider" aria-hidden="true"></span>
+  </label>
+
+  <button id="snowLevelBtn" class="hud-btn" type="button" title="Kar yoğunluğu" aria-label="Kar yoğunluğu">
+    ❄️ Medium
+  </button>
+
+  <button id="volumeBtn" class="hud-btn" type="button" title="Ses seviyesi" aria-label="Ses seviyesi">
+  🔊 Orta
+</button>
+
+  <div id="clock" class="clock" aria-hidden="true">—</div>
+</div>
+
+  <main class="stage">
+    <section class="card" aria-label="iMessage temalı karşılama">
+      <header class="topbar">
+        <div class="top-left">
+          <div class="window-controls" aria-hidden="true">
+            <span class="wc wc-close"></span>
+            <span class="wc wc-min"></span>
+            <span class="wc wc-zoom"></span>
+          </div>
+          <div class="title">
+            <strong>BTE311 — Web Tabanlı Programlama Ödevleri</strong>
+          </div>
+        </div>
+
+        <div class="status" aria-hidden="true">
+          <span class="online-dot"></span>
+          Online
+        </div>
+      </header>
+
+      <div id="thread" class="thread" role="log" aria-live="polite" aria-relevant="additions">
+        <div id="messages"></div>
+      </div>
+
+      <footer class="composer" aria-label="Görev seçimi ve yönlendirme">
+        <div class="quickbar" role="toolbar" aria-label="Hızlı görevler">
+          <span class="pill-tag" aria-hidden="true">Hazır komutlar</span>
+          <button class="pill-btn" type="button" data-fill="görev1">görev1</button>
+          <button class="pill-btn" type="button" data-fill="görev2">görev2</button>
+          <button class="pill-btn" type="button" data-fill="görev3">görev3</button>
+          <button class="pill-btn" type="button" data-fill="görev4">görev4</button>
+          <button class="pill-btn" type="button" data-fill="görev5">görev5</button>
+          <button class="pill-btn" type="button" data-fill="görev6">görev6</button>
+          <button class="pill-btn" type="button" data-fill="Lab-1">Lab-1</button>
+        </div>
+
+        <form id="composerForm" class="composer-bar" autocomplete="off">
+          <input id="routeInput" class="composer-input" type="text" inputmode="text"
+                 placeholder="Mesaj yazabilirsin" aria-label="Görev adı yaz (ör: görev1)" />
+          <button class="send" type="submit" aria-label="Git">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 19V5" stroke="white" stroke-width="2.4" stroke-linecap="round"/>
+              <path d="M6.5 10.5L12 5l5.5 5.5" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </form>
+      </footer>
     </section>
-
-    <footer class="foot">
-      <small>Hazırlayan: İlkhan Arda AKMACA 2220780023 | 2025/2026</small>
-    </footer>
   </main>
-
-  <!-- lottie for small JSON animations -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.6/lottie.min.js" defer></script>
-  <script src="main.js" defer></script>
-  <script src="btn-lottie.js" defer></script>
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+  <audio id="jingle" src="audio/jingle.mp3" loop preload="auto"></audio>
 </body>
 </html>

@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Görev 1 - KAYIT FORMU</title>
+
+  <link rel="stylesheet" href="../styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+  body { 
+    align-items: stretch;
+    justify-content: flex-start;
+    min-height: 100vh;
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+
+  .wrap {
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 28px;
+    padding-bottom: 0;
+    background: transparent; 
+  }
+
+  .top { 
+    align-items: center; 
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .top > .neo-btn-lottie { 
+    width: var(--btn-h); 
+    min-width: var(--btn-h); 
+    height: var(--btn-h); 
+    padding: 0; 
+    border-radius: 10px; 
+  }
+  .top h1 { 
+    flex: 1; 
+    text-align: center; 
+    margin: 0; 
+  }
+  .top > .ghost { 
+    width: var(--btn-h); 
+    min-width: var(--btn-h); 
+    height: var(--btn-h); 
+  }
+
+  .foot {
+    margin-top: auto;
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+
+  .form-section {
+    margin: 0 auto 48px;
+
+    /* Dark card */
+    background: rgba(15, 32, 39, 0.92);
+    border: 1px solid rgba(17,17,17,.08);
+    border-radius: 16px;
+    padding: 32px;
+
+    /* light theme shadow reference */
+    box-shadow: var(--shadow);
+
+    /* glass */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .form-section h2 {
+    color: rgba(230,243,242,.96);
+    font-size: 28px;
+    margin: 0 0 24px 0;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .form-section p {
+    color: rgba(230,243,242,.72);
+    font-size: 15px;
+    line-height: 1.6;
+    text-align: center;
+    margin: 0 0 32px 0;
+  }
+
+  .form-group {
+    margin-bottom: 24px;
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .form-group label {
+    display: block;
+    color: rgba(230,243,242,.92);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .form-group label .required {
+    color: #ff6b6b;
+    margin-left: 4px;
+  }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    width: 100%;
+    padding: 12px 16px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 12px;
+
+    color: rgba(230,243,242,.96);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+
+    transition: all 0.3s ease;
+    outline: none;
+  }
+
+  .form-input:focus,
+  .form-select:focus,
+  .form-textarea:focus {
+    background: rgba(255,255,255,.09);
+    border-color: rgba(18,192,192,0.55);
+    box-shadow: 0 0 0 3px rgba(18,192,192,0.18);
+  }
+
+  .form-input::placeholder,
+  .form-textarea::placeholder {
+    color: rgba(230,243,242,0.45);
+  }
+
+  /* Select option (bazı tarayıcılarda koyu kalması için) */
+  .form-select option{
+    background: rgb(15, 32, 39);
+    color: rgba(230,243,242,.96);
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .form-check-group {
+    margin-bottom: 24px;
+  }
+
+  .form-check-label {
+    color: rgba(230,243,242,.92);
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .form-check input[type="checkbox"],
+  .form-check input[type="radio"] {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+    cursor: pointer;
+    accent-color: #12c0c0;
+  }
+
+  .form-check label {
+    color: rgba(230,243,242,0.82);
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  .button-group {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 32px;
+  }
+
+  .form-btn {
+    height: 56px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.12);
+
+    background: rgba(255,255,255,.06);
+    box-shadow: 0 14px 30px rgba(0,0,0,.18);
+
+    color: rgba(230,243,242,.96);
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    outline: none;
+  }
+
+  .form-btn:hover {
+    box-shadow: 0 18px 40px rgba(0,0,0,.24), 0 0 18px rgba(18,192,192,0.18);
+    transform: translateY(-2px);
+    background: rgba(255,255,255,.08);
+  }
+
+  .form-btn.primary {
+    background: linear-gradient(145deg, #12c0c0, #0fb1b1);
+    color: #0f2027;
+    border-color: rgba(18,192,192,0.35);
+    box-shadow: 0 18px 40px rgba(0,0,0,.22), 0 0 22px rgba(18,192,192,0.22);
+  }
+
+  .form-btn.primary:hover {
+    box-shadow: 0 22px 46px rgba(0,0,0,.26), 0 0 30px rgba(18,192,192,0.35);
+  }
+
+  .form-btn.danger {
+    background: linear-gradient(145deg, #ff6b6b, #ee5a52);
+    color: white;
+    border-color: rgba(255,107,107,0.35);
+    box-shadow: 0 18px 40px rgba(0,0,0,.22), 0 0 18px rgba(255,107,107,0.20);
+  }
+
+  .form-btn.danger:hover {
+    box-shadow: 0 22px 46px rgba(0,0,0,.26), 0 0 28px rgba(255,107,107,0.30);
+  }
+
+  /* File Upload */
+  .file-upload {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+
+  .file-upload input[type="file"] {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  .file-upload-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+
+    background: rgba(255,255,255,.05);
+    border: 2px dashed rgba(255,255,255,0.18);
+    border-radius: 12px;
+
+    color: rgba(230,243,242,0.72);
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .file-upload:hover .file-upload-label {
+    border-color: rgba(18,192,192,0.55);
+    background: rgba(255,255,255,.08);
+    color: #12c0c0;
+  }
+
+  @media (max-width: 900px) { 
+    .wrap { padding: 20px; }
+    .form-section { padding: 24px; }
+    .button-group { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 640px) { 
+    .wrap { padding: 16px; }
+    .top h1 { font-size: 26px; }
+    .form-section { padding: 20px; }
+    .form-section h2 { font-size: 24px; }
+    .form-row { grid-template-columns: 1fr; gap: 0; }
+    .button-group { grid-template-columns: 1fr; }
+  }
+
+  .thread,
+  body .stage > .card > .thread {
+    padding: 0 !important;
+  }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <h1 class="shiny-text">Görev 1</h1>
+    </header>
+
+    <section class="form-section">
+      <h2>Kayıt Formu</h2>
+      <p>Aşağıdaki formu eksiksiz doldurunuz.</p>
+
+      <form id="registrationForm">
+        <!-- İsim ve Soyisim -->
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">Ad<span class="required">*</span></label>
+            <input type="text" id="firstName" name="firstName" class="form-input" placeholder="Adınızı giriniz" required>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Soyad<span class="required">*</span></label>
+            <input type="text" id="lastName" name="lastName" class="form-input" placeholder="Soyadınızı giriniz" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">E-posta<span class="required">*</span></label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="ornek@email.com" required>
+          </div>
+          <div class="form-group">
+            <label for="phone">Telefon</label>
+            <input type="tel" id="phone" name="phone" class="form-input" placeholder="0 (555) 123 45 67">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="password">Şifre<span class="required">*</span></label>
+            <input type="password" id="password" name="password" class="form-input" placeholder="Güçlü bir şifre giriniz" required>
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Şifre Tekrar<span class="required">*</span></label>
+            <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" placeholder="Şifrenizi tekrar giriniz" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="birthDate">Doğum Tarihi<span class="required">*</span></label>
+            <input type="date" id="birthDate" name="birthDate" class="form-input" required>
+          </div>
+           <div class="form-group">
+            <label for="occupation">Meslek</label>
+            <input type="text" id="occupation" name="occupation" class="form-input" placeholder="Mesleğinizi giriniz">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="city">Şehir</label>
+            <select id="city" name="city" class="form-select">
+              <option value="">Şehir Seçiniz</option>
+              <option value="istanbul">İstanbul</option>
+              <option value="ankara">Ankara</option>
+              <option value="izmir">İzmir</option>
+              <option value="bursa">Bursa</option>
+              <option value="antalya">Antalya</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="gender">Cinsiyet<span class="required">*</span></label>
+            <select id="gender" name="gender" class="form-select" required>
+              <option value="">Seçiniz</option>
+              <option value="erkek">Erkek</option>
+              <option value="kadin">Kadın</option>
+              <option value="diger">Diğer</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-check-group">
+          <label class="form-check-label">İlgi Alanları</label>
+          <div class="form-check">
+            <input type="checkbox" id="interest1" name="interests" value="teknoloji">
+            <label for="interest1">Teknoloji</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="interest2" name="interests" value="spor">
+            <label for="interest2">Spor</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="interest3" name="interests" value="sanat">
+            <label for="interest3">Sanat</label>
+          </div>
+          <div class="form-check">
+            <input type="checkbox" id="interest4" name="interests" value="muzik">
+            <label for="interest4">Müzik</label>
+          </div>
+        </div>
+
+        <div class="form-check-group">
+          <label class="form-check-label">Abonelik Türü<span class="required">*</span></label>
+          <div class="form-check">
+            <input type="radio" id="free" name="subscription" value="free" required>
+            <label for="free">Ücretsiz</label>
+          </div>
+          <div class="form-check">
+            <input type="radio" id="premium" name="subscription" value="premium">
+            <label for="premium">Premium (Aylık)</label>
+          </div>
+          <div class="form-check">
+            <input type="radio" id="enterprise" name="subscription" value="enterprise">
+            <label for="enterprise">Kurumsal</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="about">Hakkınızda</label>
+          <textarea id="about" name="about" class="form-textarea" placeholder="Kendiniz hakkında birkaç cümle yazınız..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Profil Fotoğrafı</label>
+          <div class="file-upload">
+            <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*">
+            <label for="profilePhoto" class="file-upload-label">
+              📁 Dosya Seçiniz veya Sürükleyip Bırakınız
+            </label>
+          </div>
+        </div>
+
+        <div class="form-check-group">
+          <div class="form-check">
+            <input type="checkbox" id="terms" name="terms" required>
+            <label for="terms">Kullanım şartlarını ve gizlilik politikasını okudum, kabul ediyorum<span class="required">*</span></label>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button type="submit" class="form-btn primary">Kayıt Ol</button>
+          <button type="reset" class="form-btn">Formu Temizle</button>
+          <button type="button" class="form-btn danger" onclick="alert('İptal edildi')">İptal</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <script src="../main.js" defer></script>
+  <script src="../btn-lottie.js" defer></script>
+</body>
+</html>

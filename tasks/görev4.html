@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Görev 4 - KART YAPILARI</title>
+
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body { 
+      align-items: stretch;
+      justify-content: flex-start;
+      min-height: 100vh;
+      display: flex;
+      margin: 0;
+      padding: 0;
+    }
+
+    .wrap{
+    position: relative;
+    overflow: hidden;            /* blur kenarlarını taşırmasın */
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 28px;
+    padding-bottom: 0;
+    background: transparent;
+    }
+
+    .wrap::before{
+     content: "";
+     position: absolute;
+     inset: 0;
+    
+     background-image: url("görev4 assets/7c47a6c70640604c5cd6df7cd5faef7e.jpg");
+     background-repeat: no-repeat;
+     background-position: center;
+     background-size: cover;      /* contain istersen contain yap */
+    
+     filter: blur(6px);           /* blur şiddeti */
+     transform: scale(1.05);      /* blur kenar boşluklarını gizler */
+     z-index: 0;
+    }
+
+    .wrap > *{
+      position: relative;
+      z-index: 1;
+    }
+
+    .top { 
+      align-items: center; 
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .top > .neo-btn-lottie { 
+      width: var(--btn-h); 
+      min-width: var(--btn-h); 
+      height: var(--btn-h); 
+      padding: 0; 
+      border-radius: 10px; 
+    }
+    .top h1 { 
+      flex: 1; 
+      text-align: center; 
+      margin: 0; 
+    }
+    .top > .ghost { 
+      width: var(--btn-h); 
+      min-width: var(--btn-h); 
+      height: var(--btn-h); 
+    }
+
+    .foot {
+      margin-top: auto;
+      padding-top: 28px;
+      padding-bottom: 28px;
+    }
+
+    .container {
+      display: grid;
+      gap: 16px;
+      padding: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    @media (min-width: 576px) {
+      .container { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 768px) {
+      .container { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (min-width: 992px) {
+      .container { grid-template-columns: repeat(6, 1fr); }
+    }
+
+    .g4-card {
+      background-color: #101820;
+      background-image: url('görev4 assets/7c47a6c70640604c5cd6df7cd5faef7e.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      overflow: hidden;
+      border-radius: 18px;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      transition: all 0.25s ease-out;
+      border: 1px solid #5f5e63;
+      position: relative;
+    }
+
+    .g4-card:hover {
+      transform: scale(1.);
+      letter-spacing: 0.25cap;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    }
+
+    .g4-card::before {
+      content: '';
+      letter-spacing: 0.25cap;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('görev4 assets/cyan-front.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform: scaleY(-1) scale(1);
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+    }
+
+    .g4-card:hover::before {
+      opacity: 1;
+      transform: scaleY(-1) scale(1);
+    }
+
+    /* Koyu overlay */
+    .g4-card-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(16, 24, 32, 0.7);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .g4-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url('görev4 assets/cyan-front.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0;
+      transform: scale(1);
+      transition: opacity 0.3s ease-in-out, transform 0.5s ease-in-out, z-index 0s 0.5s;
+    }
+
+    .g4-card:hover::after {
+      z-index: 10;
+      opacity: 1;
+      transition: opacity 0.3s ease-in-out, transform 0.5s ease-in-out, z-index 0s;
+    }
+
+    .g4-card img,
+    .g4-card h3 {
+      position: relative;
+      z-index: 2;
+    }
+
+    .g4-card img {
+      z-index: 2;
+    }
+
+    .g4-card h3 {
+      z-index: 100;
+    }
+
+    /* Görsel kendi boyutuna göre uzasın */
+    .g4-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: filter 0.25s ease-out;
+    }
+
+    .g4-card:hover img {
+      filter: brightness(1.15) contrast(1.05);
+    }
+
+    /* İsim kısmı */
+    .g4-card h3 {
+      position: relative;
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      background-color: #000000;
+      color: #ffffff;
+      padding: 12px 0;
+      transition: background-color 0.3s ease;
+      z-index: 100;
+    }
+
+    .g4-card:hover h3 {
+      background-color: #12c0c0;
+    }
+    
+    .shiny-text{
+      color: #ffffff;
+    }
+
+     .thread,
+      body .stage > .card > .thread {
+      padding: 0 !important;
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <h1 class="shiny-text">Görev 4</h1>
+    </header>
+    <div class="container">
+    <div class="g4-card">
+      <div class="g4-card-overlay"></div>
+      <img src="görev4 assets/r6-operators-list-jager.png.avif" alt="Lion">
+      <h3>JÄGER</h3>
+    </div>
+    <div class="g4-card">
+      <div class="g4-card-overlay"></div>
+      <img src="görev4 assets/r6-operators-list-bandit.png.avif" alt="Finka">
+      <h3>BANDIT</h3>
+    </div>
+    <div class="g4-card">
+      <div class="g4-card-overlay"></div>
+      <img src="görev4 assets/r6-operators-list-blitz.png.avif" alt="Vigil">
+      <h3>BLITZ</h3>
+    </div>
+    <div class="g4-card">
+      <div class="g4-card-overlay"></div>
+      <img src="görev4 assets/r6-operators-list-iq.png.avif" alt="Dokkaebi">
+      <h3>IQ</h3>
+    </div>
+    <div class="g4-card">
+      <div class="g4-card-overlay"></div>
+      <img src="görev4 assets/r6s-operators-list-tachanka.png.avif" alt="Lion">
+      <h3>TACHANKA</h3>
+    </div>
+    <div class="g4-card">
+      <div class="g4-card-overlay"></div>
+      <img src="görev4 assets/r6-operators-list-glaz.png.avif" alt="Finka">
+      <h3>GLAZ</h3>
+    </div>
+    <div class="g4-card">
+      <div class="g4-card-overlay"></div>
+      <img src="görev4 assets/r6-operators-list-fuze.png.avif" alt="Vigil">
+      <h3>FUZE</h3>
+    </div>
+    <div class="g4-card">
+      <div class="g4-card-overlay"></div>
+      <img src="görev4 assets/r6-operators-list-kapkan.png.avif" alt="Dokkaebi">
+      <h3>KAPKAN</h3>
+    </div>
+    <div class="g4-card">
+      <div class="g4-card-overlay"></div>
+      <img src="görev4 assets/r6-operators-list-doc.png.avif" alt="Lion">
+      <h3>DOC</h3>
+    </div>
+    <div class="g4-card">
+      <div class="g4-card-overlay"></div>
+      <img src="görev4 assets/r6-operators-list-rook.png.avif" alt="Finka">
+      <h3>ROOK</h3>
+    </div>
+    <div class="g4-card">
+      <div class="g4-card-overlay"></div>
+      <img src="görev4 assets/r6-operators-list-montagne.png.avif" alt="Vigil">
+      <h3>MONTAGNE</h3>
+    </div>
+    <div class="g4-card">
+      <div class="g4-card-overlay"></div>
+      <img src="görev4 assets/r6-operators-list-twitch.png.avif" alt="Dokkaebi">
+      <h3>TWITCH</h3>
+    </div>
+    </div>
+  </div>
+    <footer class="foot">
+      <small>Hazırlayan: İlkhan Arda AKMACA 2220780023 | 2025/2026</small>
+    </footer>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.6/lottie.min.js" defer></script>
+  <script src="main.js" defer></script>
+</body>
+</html>
