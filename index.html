@@ -7,6 +7,7 @@
 
   <link rel="stylesheet" href="stylesmain.css" />
   <script src="app.js" defer></script>
+  <script src="weather-widget.js" defer></script>
 </head>
 <body>
   <div class="wallpaper wallpaper-light" aria-hidden="true"></div>
@@ -15,6 +16,7 @@
   <canvas id="snow" aria-hidden="true"></canvas>
 
   <!-- HUD (outside the card) -->
+   
   <div class="hud" aria-label="Saat ve Christmas Mode">
   <label class="toggle" title="Christmas Mode">
     <span>Christmas Mode</span>
@@ -66,6 +68,7 @@
           <button class="pill-btn" type="button" data-fill="görev4">görev4</button>
           <button class="pill-btn" type="button" data-fill="görev5">görev5</button>
           <button class="pill-btn" type="button" data-fill="görev6">görev6</button>
+          <button class="pill-btn" type="button" data-fill="görev7">görev7</button>
           <button class="pill-btn" type="button" data-fill="lab-1">lab-1</button>
         </div>
 
@@ -84,5 +87,28 @@
   </main>
   <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
   <audio id="jingle" src="audio/jingle.mp3" loop preload="auto"></audio>
+<aside class="wxMiniFloating">
+  <section class="wxMini" id="wxMini">
+    <div class="wxMini__top">
+      <div class="wxMini__left">
+        <div class="wxMini__cityRow">
+          <span id="wxMiniCity">—</span>
+          <span class="wxMini__pin">↗</span>
+        </div>
+        <div class="wxMini__temp"><span id="wxMiniTemp">--</span>°</div>
+      </div>
+
+      <div class="wxMini__right">
+        <div class="wxMini__icon" id="wxMiniIcon"></div>
+        <div class="wxMini__desc" id="wxMiniDesc">—</div>
+        <div class="wxMini__hilo">
+          H:<span id="wxMiniHi">--</span>° L:<span id="wxMiniLo">--</span>°
+        </div>
+      </div>
+    </div>
+
+    <div class="wxMini__hours" id="wxMiniHours"></div>
+  </section>
+</aside>
 </body>
 </html>

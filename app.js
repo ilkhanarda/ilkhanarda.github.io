@@ -14,8 +14,11 @@ const scriptLines = [
   "Hazırsan, aşağıdaki görevlerden birisini seçebilir ya da ismini yazarak ilgili sayfaya gidebilirsin."
 ];
 
+// Mesajlar başlamadan önce beklenecek süre (ms)
+const MESSAGE_START_DELAY = 1800;
+
 // Allowed routes (validate + suggest)
-const ROUTES = ["görev1","görev2","görev3","görev4","görev5","görev6","lab-1"];
+const ROUTES = ["görev1","görev2","görev3","görev4","görev5","görev6","görev7","lab-1"];
 
 // ---- DOM ----
 const thread = document.getElementById("thread");
@@ -218,7 +221,8 @@ function createRow({ text, showName, typing }){
 }
 
 async function runMessages(){
-  await wait(450);
+  // Mesaj akışı başlamadan önce kısa bekleme
+  await wait(MESSAGE_START_DELAY);
   addTodayDivider();
 
   for (let i = 0; i < scriptLines.length; i++){

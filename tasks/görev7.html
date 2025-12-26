@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Görev 7 — Canlı Hava Durumu</title>
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* === WX7+: More detailed glass UI (keeps existing IDs for görev7.js) === */
+    .wx7{
+      --bg: rgba(255,255,255,.12);
+      --bd: rgba(255,255,255,.18);
+      --txt: rgba(20,20,20,.92);
+      --muted: rgba(20,20,20,.65);
+      --muted2: rgba(20,20,20,.50);
+      --glass: blur(16px);
+      --shadow: 0 18px 55px rgba(0,0,0,.12);
+
+      padding: 14px;
+      max-width: 1120px;
+      margin: 0 auto;
+      color: var(--txt);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      position: relative;
+    }
+
+    /* subtle background ornaments */
+    .wx7::before{
+      content:"";
+      position:absolute;
+      inset:-120px -180px auto auto;
+      width: 520px;
+      height: 520px;
+      background: radial-gradient(circle at 30% 30%, rgba(70,180,255,.30), transparent 62%);
+      pointer-events:none;
+      filter: blur(0.5px);
+      z-index: 0;
+    }
+    .wx7::after{
+      content:"";
+      position:absolute;
+      inset:auto auto -220px -260px;
+      width: 620px;
+      height: 620px;
+      background: radial-gradient(circle at 30% 30%, rgba(90,255,190,.22), transparent 64%);
+      pointer-events:none;
+      z-index: 0;
+    }
+
+    .wx7 *{ position: relative; z-index: 1; }
+
+    /* glass */
+    .wx7 .glass{
+      background: var(--bg);
+      border: 1px solid var(--bd);
+      border-radius: 20px;
+      backdrop-filter: var(--glass);
+      -webkit-backdrop-filter: var(--glass);
+      box-shadow: var(--shadow);
+    }
+
+    /* header / hero */
+    .wx7__hero{
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 14px;
+      padding: 16px;
+      overflow: hidden;
+    }
+
+    .wx7__heroTitle{
+      display:flex;
+      align-items:flex-start;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .wx7__badge{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.14);
+      font-weight: 850;
+      letter-spacing: .2px;
+      width: fit-content;
+    }
+    .wx7__dot{
+      width: 10px; height: 10px;
+      border-radius: 999px;
+      background: rgba(30, 210, 120, .95);
+      box-shadow: 0 0 0 6px rgba(30,210,120,.20);
+    }
+
+    .wx7__title{
+      margin: 10px 0 0 0;
+      font-weight: 950;
+      letter-spacing: -.35px;
+      font-size: clamp(20px, 2.2vw, 28px);
+    }
+    .wx7__sub{
+      margin: 6px 0 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .wx7__chips{
+      margin-top: 12px;
+      display:flex;
+      gap:10px;
+      flex-wrap: wrap;
+    }
+    .wx7__chip{
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.12);
+      border-radius: 999px;
+      padding: 8px 11px;
+      font-size: 12px;
+      font-weight: 850;
+      color: rgba(20,20,20,.78);
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+    }
+
+    /* Search */
+    .wx7__search{
+      padding: 14px;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+    .wx7__searchRow{
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 10px;
+    }
+    .wx7__input{
+      height: 44px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.22);
+      background: rgba(255,255,255,.14);
+      outline: none;
+      padding: 0 14px;
+      font-size: 15px;
+      color: var(--txt);
+    }
+    .wx7__input::placeholder{ color: rgba(20,20,20,.45); }
+
+    .wx7__btn{
+      height: 44px;
+      padding: 0 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.26);
+      background: linear-gradient(180deg, rgba(60,160,255,.42), rgba(60,160,255,.26));
+      color: rgba(20,20,20,.92);
+      font-weight: 950;
+      cursor: pointer;
+      transition: transform .12s ease, background .12s ease, box-shadow .12s ease, filter .12s ease;
+      user-select: none;
+      box-shadow: 0 14px 34px rgba(0,0,0,.10);
+    }
+    .wx7__btn:hover{ filter: brightness(1.04); background: linear-gradient(180deg, rgba(60,160,255,.50), rgba(60,160,255,.30)); }
+    .wx7__btn:active{ transform: translateY(1px) scale(.99); }
+    .wx7__btn.secondary{
+      background: linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,.16));
+      border: 1px solid rgba(255,255,255,.26);
+      box-shadow: 0 10px 26px rgba(0,0,0,.08);
+    }
+
+    .wx7__mini{
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .wx7__status{
+      display: none;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    .wx7__spinner{
+      width: 14px; height: 14px;
+      border-radius: 999px;
+      border: 2px solid rgba(20,20,20,.25);
+      border-top-color: rgba(60,160,255,.95);
+      animation: wxspin 1s linear infinite;
+    }
+    @keyframes wxspin{ to{ transform: rotate(360deg); } }
+
+    /* Main layout */
+    .wx7__grid{
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 1.45fr .55fr;
+      gap: 14px;
+      align-items: stretch; /* side card = main card height */
+    }
+
+    .wx7__card{
+      padding: 16px;
+      overflow: hidden;
+    }
+
+    .wx7__sectionTitle{
+      margin: 0 0 10px 0;
+      font-weight: 950;
+      color: rgba(20,20,20,.78);
+      letter-spacing: .2px;
+      font-size: 13px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .wx7__sectionHint{ color: var(--muted2); font-weight: 850; font-size: 12px; }
+
+    /* Current card */
+    .wx7__currentTop{
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255,255,255,.16);
+      margin-bottom: 12px;
+    }
+
+    .wx7__place{
+      margin: 0;
+      font-size: 16px;
+      font-weight: 950;
+    }
+    .wx7__meta{
+      margin: 6px 0 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .wx7__updated{
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(20,20,20,.58);
+    }
+
+    .wx7__tempBox{ text-align: right; min-width: 160px; }
+    .wx7__tempBig{
+      display: inline-flex;
+      align-items: baseline;
+      gap: 10px;
+      font-size: clamp(46px, 5vw, 68px);
+      font-weight: 950;
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+    .wx7__emoji{
+      font-size: 34px;
+      line-height: 1;
+      transform: translateY(3px);
+      filter: drop-shadow(0 10px 24px rgba(0,0,0,.10));
+    }
+    .wx7__desc{
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* Highlights */
+    .wx7__stats{
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+    }
+
+    .wx7__stat{
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.20);
+      transition: transform .12s ease, background .12s ease;
+    }
+    .wx7__stat:hover{
+      background: rgba(255,255,255,.18);
+      transform: translateY(-1px);
+    }
+
+    .wx7__k{
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      font-size: 12px;
+      color: rgba(20,20,20,.62);
+      margin-bottom: 6px;
+      font-weight: 800;
+    }
+
+    .wx7__k svg{ width: 16px; height: 16px; opacity: .72; }
+
+    .wx7__v{
+      font-size: 18px;
+      font-weight: 950;
+      color: rgba(20,20,20,.92);
+    }
+
+    /* Hourly strip (placeholder — can be filled later if you want) */
+    .wx7__hourly{
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255,255,255,.16);
+    }
+    .wx7__hourRow{
+      display:flex;
+      gap: 10px;
+      overflow: auto;
+      padding-bottom: 6px;
+      scroll-snap-type: x mandatory;
+    }
+    .wx7__hourCard{
+      flex: 0 0 116px;
+      scroll-snap-align: start;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.20);
+      background: rgba(255,255,255,.12);
+      padding: 10px;
+      text-align: center;
+    }
+    .wx7__hourT{ font-weight: 950; color: rgba(20,20,20,.68); font-size: 12px; }
+    .wx7__hourTemp{ margin-top: 8px; font-size: 18px; font-weight: 950; color: rgba(20,20,20,.82); }
+    .wx7__hourMini{ margin-top: 6px; font-size: 12px; color: rgba(20,20,20,.50); font-weight: 850; }
+
+    /* Side cards */
+    .wx7__side{ display: grid; gap: 14px; align-content: start; height: 100%; }
+    .wx7__side .wx7__card{ height: 100%; display: flex; flex-direction: column; }
+    .wx7__side .wx7__pills{ flex: 1; overflow: auto; padding-bottom: 4px; }
+
+    .wx7__hintTitle{ font-weight: 950; margin: 0 0 8px 0; }
+
+    .wx7__pills{ display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+
+    .wx7__pill{
+      border: 1px solid rgba(255,255,255,.30);
+      background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.12));
+      border-radius: 999px;
+      padding: 9px 12px;
+      font-size: 12px;
+      font-weight: 950;
+      cursor: pointer;
+      color: rgba(20,20,20,.90);
+      transition: transform .12s ease, background .12s ease, box-shadow .12s ease, filter .12s ease;
+      box-shadow: 0 10px 26px rgba(0,0,0,.10);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      text-shadow: 0 1px 0 rgba(255,255,255,.35);
+    }
+    .wx7__pill:hover{
+      filter: brightness(1.05);
+      background: linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,.14));
+      box-shadow: 0 14px 34px rgba(0,0,0,.12);
+      transform: translateY(-1px);
+    }
+    .wx7__pill:active{ transform: translateY(1px); }
+
+    .wx7__footer{
+      margin-top: 12px;
+      text-align: center;
+      color: rgba(20,20,20,.46);
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    /* === Responsive === */
+    @media (max-width: 980px){
+      .wx7__hero{ grid-template-columns: 1fr; }
+      .wx7__grid{ grid-template-columns: 1fr; }
+      .wx7__tempBox{ text-align: left; }
+      .wx7__currentTop{ flex-direction: column; align-items: flex-start; }
+      .wx7__stats{ grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 520px){
+      .wx7{ padding: 10px; }
+      .wx7__hero, .wx7__card{ padding: 14px; }
+      .wx7__searchRow{ grid-template-columns: 1fr; }
+      .wx7__btn{ width: 100%; }
+      .wx7__stats{ grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wx7">
+    <!-- HERO -->
+    <section class="wx7__hero glass">
+      <div>
+        <div class="wx7__heroTitle">
+          <div>
+            <div class="wx7__badge">
+              <span class="wx7__dot"></span>
+              Canlı
+            </div>
+            <h1 class="wx7__title">Görev 7 — Canlı Hava Durumu</h1>
+            <p class="wx7__sub">
+              Open-Meteo ile anlık veri • 60 sn’de bir otomatik yenilenir • Konum izni yoksa şehir aramasıyla çalışır
+            </p>
+
+            <div class="wx7__chips">
+              <span class="wx7__chip">⚡ Anlık</span>
+              <span class="wx7__chip">🔄 Otomatik yenile</span>
+              <span class="wx7__chip">📍 Konum / Şehir</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="wx7__search glass">
+        <div class="wx7__searchRow">
+          <input id="cityInput" class="wx7__input" type="text" placeholder="Şehir ara (örn: Ankara, İstanbul, İzmir)" autocomplete="off" />
+          <button id="searchBtn" class="wx7__btn" type="button">Ara</button>
+          <button id="geoBtn" class="wx7__btn secondary" type="button">Konum</button>
+        </div>
+
+        <div id="status" class="wx7__status">
+          <span class="wx7__spinner" aria-hidden="true"></span>
+          <span id="statusText">Yükleniyor…</span>
+        </div>
+
+        <div class="wx7__mini">
+          İpucu: “Konum” tarayıcı izni ister. İzin verilmezse şehir ismi girip “Ara” ile devam edebilirsin.
+        </div>
+      </div>
+    </section>
+
+    <!-- GRID -->
+    <section class="wx7__grid">
+      <!-- Current / details -->
+      <article class="wx7__card glass">
+        <div class="wx7__sectionTitle">
+          <span>Şu an</span>
+          <span class="wx7__sectionHint">Detaylı özet</span>
+        </div>
+
+        <div class="wx7__currentTop">
+          <div>
+            <p class="wx7__place" id="place">—</p>
+            <p class="wx7__meta" id="meta">—</p>
+            <div class="wx7__updated" id="updated">—</div>
+          </div>
+
+          <div class="wx7__tempBox">
+            <div class="wx7__tempBig">
+              <span class="wx7__emoji" id="emoji">⛅️</span>
+              <span><span id="temp">--</span>°</span>
+            </div>
+            <div class="wx7__desc" id="desc">—</div>
+          </div>
+        </div>
+
+        <div class="wx7__sectionTitle" style="margin-top: 2px;">
+          <span>Bugünün öne çıkanları</span>
+          <span class="wx7__sectionHint">Highlights</span>
+        </div>
+
+        <div class="wx7__stats">
+          <div class="wx7__stat">
+            <div class="wx7__k">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 21a7 7 0 1 1 0-14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M12 7V3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M7 12H3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Hissedilen
+            </div>
+            <div class="wx7__v" id="feels">--°</div>
+          </div>
+
+          <div class="wx7__stat">
+            <div class="wx7__k">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2s6 7 6 12a6 6 0 1 1-12 0c0-5 6-12 6-12Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+              Nem
+            </div>
+            <div class="wx7__v" id="hum">--%</div>
+          </div>
+
+          <div class="wx7__stat">
+            <div class="wx7__k">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 12h11c2.5 0 3.5-1.2 3.5-2.5S16.5 7 14 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M3 16h14c2.8 0 4-1.4 4-3s-1.2-3-4-3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+              Rüzgar
+            </div>
+            <div class="wx7__v" id="wind">-- km/s</div>
+          </div>
+
+          <div class="wx7__stat">
+            <div class="wx7__k">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 14c0-4 4-9 4-9s4 5 4 9a4 4 0 1 1-8 0Z" stroke="currentColor" stroke-width="2"/></svg>
+              Yağış
+            </div>
+            <div class="wx7__v" id="prec">-- mm</div>
+          </div>
+
+          <div class="wx7__stat">
+            <div class="wx7__k">🧭 Basınç</div>
+            <div class="wx7__v" id="pressure">-- hPa</div>
+          </div>
+
+          <div class="wx7__stat">
+            <div class="wx7__k">👁️ Görüş</div>
+            <div class="wx7__v" id="vis">-- km</div>
+          </div>
+        </div>
+
+        <div class="wx7__hourly">
+          <div class="wx7__sectionTitle">
+            <span>Saatlik (yaklaşık)</span>
+            <span class="wx7__sectionHint">UI detayı</span>
+          </div>
+          <div class="wx7__hourRow" aria-label="Saatlik kartlar">
+            <div class="wx7__hourCard"><div class="wx7__hourT">1 PM</div><div class="wx7__hourTemp">20°</div><div class="wx7__hourMini">Cloudy</div></div>
+            <div class="wx7__hourCard"><div class="wx7__hourT">2 PM</div><div class="wx7__hourTemp">21°</div><div class="wx7__hourMini">Rainy</div></div>
+            <div class="wx7__hourCard"><div class="wx7__hourT">3 PM</div><div class="wx7__hourTemp">21°</div><div class="wx7__hourMini">Rainy</div></div>
+            <div class="wx7__hourCard"><div class="wx7__hourT">4 PM</div><div class="wx7__hourTemp">20°</div><div class="wx7__hourMini">Cloudy</div></div>
+            <div class="wx7__hourCard"><div class="wx7__hourT">5 PM</div><div class="wx7__hourTemp">21°</div><div class="wx7__hourMini">Rainy</div></div>
+            <div class="wx7__hourCard"><div class="wx7__hourT">6 PM</div><div class="wx7__hourTemp">21°</div><div class="wx7__hourMini">Rainy</div></div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Side -->
+      <aside class="wx7__side">
+        <div class="wx7__card glass">
+          <div class="wx7__hintTitle">Hızlı şehirler</div>
+          <div class="wx7__mini">Birine tıklayıp anında veriyi çekebilirsin.</div>
+          <div class="wx7__pills">
+            <button class="wx7__pill" data-city="Ankara">Ankara</button>
+            <button class="wx7__pill" data-city="İstanbul">İstanbul</button>
+            <button class="wx7__pill" data-city="İzmir">İzmir</button>
+            <button class="wx7__pill" data-city="Bursa">Bursa</button>
+            <button class="wx7__pill" data-city="Antalya">Antalya</button><button class="wx7__pill" data-city="New York">New York</button>
+            <button class="wx7__pill" data-city="London">London</button>
+            <button class="wx7__pill" data-city="Paris">Paris</button>
+            <button class="wx7__pill" data-city="Tokyo">Tokyo</button>
+            <button class="wx7__pill" data-city="Dubai">Dubai</button>
+          </div>
+        </div>
+      </aside>
+    </section>
+    <div class="wx7__footer">Veri kaynağı: <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a></div>
+  </div>
+
+  <script src="main.js" defer></script>
+  <script src="tasks/görev7.js" defer></script>
+</body>
+</html>
