@@ -14,6 +14,8 @@ const $ = (id) => document.getElementById(id);
     hum: $("hum"),
     wind: $("wind"),
     prec: $("prec"),
+    vis: $("vis"),
+    pressure: $("pressure"),
     searchBtn: $("searchBtn"),
     geoBtn: $("geoBtn"),
   };
@@ -111,7 +113,9 @@ const $ = (id) => document.getElementById(id);
         "precipitation",
         "weather_code",
         "wind_speed_10m",
-        "wind_direction_10m"
+        "wind_direction_10m",
+        "visibility",
+        "pressure_msl",
       ].join(",")
     });
     const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
@@ -132,10 +136,17 @@ const $ = (id) => document.getElementById(id);
     el.temp.textContent = Math.round(current.temperature_2m ?? 0);
     el.feels.textContent = `${Math.round(current.apparent_temperature ?? 0)}°`;
     el.hum.textContent = `${Math.round(current.relative_humidity_2m ?? 0)}%`;
+    el.vis.textContent = `${Math.round(current.visibility ?? 0)}km`;
 
     const w = current.wind_speed_10m ?? 0;
     const dir = compass(current.wind_direction_10m);
     el.wind.textContent = `${Math.round(w)} km/s${dir ? " • " + dir : ""}`;
+
+    const p = current.pressure_msl;
+    el.pressure.textContent = (p == null || isNaN(p)) ? "-- hPa" : `${Math.round(p)} hPa`;
+
+    const v = current.visibility;
+    el.vis.textContent = (v == null || isNaN(v)) ? "-- km" : `${(v / 1000).toFixed(1)} km`;
 
     el.prec.textContent = `${(current.precipitation ?? 0).toFixed(1)} mm`;
     el.updated.textContent = `Güncellendi: ${fmtTime(current.time)} (60 sn’de bir yenilenir)`;

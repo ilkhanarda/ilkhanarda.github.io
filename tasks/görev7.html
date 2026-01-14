@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Görev 7 — Canlı Hava Durumu</title>
 
   <link rel="stylesheet" href="styles.css">
@@ -50,6 +50,19 @@
     }
 
     .wx7 *{ position: relative; z-index: 1; }
+
+    /* screen-reader only heading (for validator/accessibility) */
+    .sr-only{
+      position:absolute;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
 
     /* glass */
     .wx7 .glass{
@@ -422,7 +435,7 @@
 
       <div class="wx7__search glass">
         <div class="wx7__searchRow">
-          <input id="cityInput" class="wx7__input" type="text" placeholder="Şehir ara (örn: Ankara, İstanbul, İzmir)" autocomplete="off" />
+          <input id="cityInput" class="wx7__input" type="text" placeholder="Şehir ara (örn: Ankara, İstanbul, İzmir)" autocomplete="off">
           <button id="searchBtn" class="wx7__btn" type="button">Ara</button>
           <button id="geoBtn" class="wx7__btn secondary" type="button">Konum</button>
         </div>
@@ -439,7 +452,8 @@
     </section>
 
     <!-- GRID -->
-    <section class="wx7__grid">
+    <section class="wx7__grid" aria-labelledby="wx7-grid-title">
+      <h2 id="wx7-grid-title" class="sr-only">Hava durumu paneli</h2>
       <!-- Current / details -->
       <article class="wx7__card glass">
         <div class="wx7__sectionTitle">
@@ -517,13 +531,13 @@
             <span>Saatlik (yaklaşık)</span>
             <span class="wx7__sectionHint">UI detayı</span>
           </div>
-          <div class="wx7__hourRow" aria-label="Saatlik kartlar">
-            <div class="wx7__hourCard"><div class="wx7__hourT">1 PM</div><div class="wx7__hourTemp">20°</div><div class="wx7__hourMini">Cloudy</div></div>
-            <div class="wx7__hourCard"><div class="wx7__hourT">2 PM</div><div class="wx7__hourTemp">21°</div><div class="wx7__hourMini">Rainy</div></div>
-            <div class="wx7__hourCard"><div class="wx7__hourT">3 PM</div><div class="wx7__hourTemp">21°</div><div class="wx7__hourMini">Rainy</div></div>
-            <div class="wx7__hourCard"><div class="wx7__hourT">4 PM</div><div class="wx7__hourTemp">20°</div><div class="wx7__hourMini">Cloudy</div></div>
-            <div class="wx7__hourCard"><div class="wx7__hourT">5 PM</div><div class="wx7__hourTemp">21°</div><div class="wx7__hourMini">Rainy</div></div>
-            <div class="wx7__hourCard"><div class="wx7__hourT">6 PM</div><div class="wx7__hourTemp">21°</div><div class="wx7__hourMini">Rainy</div></div>
+          <div class="wx7__hourRow" role="list" aria-label="Saatlik kartlar">
+            <div class="wx7__hourCard" role="listitem"><div class="wx7__hourT">1 PM</div><div class="wx7__hourTemp">20°</div><div class="wx7__hourMini">Cloudy</div></div>
+            <div class="wx7__hourCard" role="listitem"><div class="wx7__hourT">2 PM</div><div class="wx7__hourTemp">21°</div><div class="wx7__hourMini">Rainy</div></div>
+            <div class="wx7__hourCard" role="listitem"><div class="wx7__hourT">3 PM</div><div class="wx7__hourTemp">21°</div><div class="wx7__hourMini">Rainy</div></div>
+            <div class="wx7__hourCard" role="listitem"><div class="wx7__hourT">4 PM</div><div class="wx7__hourTemp">20°</div><div class="wx7__hourMini">Cloudy</div></div>
+            <div class="wx7__hourCard" role="listitem"><div class="wx7__hourT">5 PM</div><div class="wx7__hourTemp">21°</div><div class="wx7__hourMini">Rainy</div></div>
+            <div class="wx7__hourCard" role="listitem"><div class="wx7__hourT">6 PM</div><div class="wx7__hourTemp">21°</div><div class="wx7__hourMini">Rainy</div></div>
           </div>
         </div>
       </article>
